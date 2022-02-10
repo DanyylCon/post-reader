@@ -1,8 +1,30 @@
+<div *ngIf="postTitle.invalid && postTitle.dirty" style="color: red;">
+    <div *ngIf="postTitle.errors?.['required']">
+        Please provide a title for your post.
+    </div>
+    <div *ngIf="postTitle.errors?.['minlength']">
+        Post title must be at least 6 characters long.
+    </div>
+    <div *ngIf="postTitle.errors?.['maxlength']">
+        Post title must be no more than 32 characters long.
+    </div>
+</div>
+
+<div *ngIf="postBody.invalid && postTitle.dirty" style="color: red;">
+    <div *ngIf="postBody.errors?.['required']">
+        Please provide a body for your post.
+    </div>
+    <div *ngIf="postBody.errors?.['minlength']">
+        Post body must be at least 16 characters long.
+    </div>
+</div>
+
 <form #form="ngForm" (ngSubmit)="submitForm()">
     <h1>Create a post</h1>
-    <input type="text" name="title" required minlength="6" maxlength="32" placeholder="Post title" [(ngModel)]="title">
+    <input type="text" name="title" required minlength="6" maxlength="32" placeholder="Post title" [(ngModel)]="title" #postTitle="ngModel">
     <br>
-    <textarea name="body" required minlength="16" placeholder="Post Body" cols="30" rows="10" [(ngModel)]="body"></textarea>
+    <textarea name="body" required minlength="16" placeholder="Post Body" cols="30" rows="10" [(ngModel)]="body" #postBody="ngModel" ></textarea>
     <br>
-    <input type="submit" [disabled]="form.invalid" value="Submit" class="btn btn-primary">
+    <input type="submit" [disabled]="form.invalid"  value="Submit" class="btn btn-primary">
 </form>
+
